@@ -7,7 +7,7 @@ import Link from 'next/link'
 const contactMethods = [
   {
     label: 'Business Inquiries',
-    value: 'BUSINESS@WYDROB.APP',
+    value: 'WYDROB@WYDROB.APP',
     type: 'email',
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
