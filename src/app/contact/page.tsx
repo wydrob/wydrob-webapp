@@ -66,7 +66,7 @@ export default function ContactPage() {
     <main
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      className="relative h-screen bg-[#0a0a0a] overflow-hidden"
+      className="relative h-screen bg-[#0a0a0a] overflow-hidden touch-none"
     >
       {/* Cursor */}
       <motion.div

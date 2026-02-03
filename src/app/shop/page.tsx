@@ -112,7 +112,7 @@ export default function ShopPage() {
     <main
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      className="relative h-screen bg-[#0a0a0a] overflow-hidden"
+      className="relative h-screen bg-[#0a0a0a] overflow-hidden touch-none"
     >
       {/* Cursor */}
       <motion.div
@@ -189,7 +189,7 @@ export default function ShopPage() {
                         linear-gradient(to right, #f5f5f5 1px, transparent 1px),
                         linear-gradient(to bottom, #f5f5f5 1px, transparent 1px)
                       `,
-                      backgroundSize: '56px 56px'
+                      backgroundSize: '12.5% 12.5%'
                     }}
                   />
 
