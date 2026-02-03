@@ -85,13 +85,8 @@ export default function OrbitalNav({ isVisible, scrollSection }: Props) {
             />
           )}
 
-          {/* Pulsing core hub */}
+          {/* Core hub */}
           <motion.div
-            animate={{
-              boxShadow: isExpanded
-                ? '0 0 40px 10px rgba(245, 245, 245, 0.15)'
-                : '0 0 20px 5px rgba(245, 245, 245, 0.08)'
-            }}
             className="relative z-10 w-12 h-12 rounded-full border border-[#f5f5f5]/30 flex items-center justify-center bg-[#0a0a0a]/80 backdrop-blur-sm cursor-pointer"
           >
             <motion.div
@@ -136,11 +131,6 @@ export default function OrbitalNav({ isVisible, scrollSection }: Props) {
                   >
                     {/* Orb */}
                     <motion.div
-                      animate={{
-                        boxShadow: isHovered
-                          ? `0 0 25px 6px ${orb.color}50`
-                          : `0 0 10px 2px ${orb.color}25`
-                      }}
                       className="w-11 h-11 rounded-full border border-[#f5f5f5]/20 hover:border-[#f5f5f5]/50 flex items-center justify-center bg-[#0a0a0a]/90 backdrop-blur-sm transition-all duration-300"
                       style={{
                         background: isHovered
@@ -185,33 +175,32 @@ export default function OrbitalNav({ isVisible, scrollSection }: Props) {
         </motion.div>
       )}
 
-      {/* Mobile version - vertical stack on left */}
+      {/* Mobile version - horizontal row at top */}
       {isMobile && (
         <motion.div
-          initial={{ x: -50, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          exit={{ x: -50, opacity: 0 }}
+          initial={{ y: -30, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: -30, opacity: 0 }}
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="fixed left-0 top-1/2 -translate-y-1/2 pointer-events-auto"
+          className="fixed top-9 left-1/2 -translate-x-1/2 pointer-events-auto"
         >
-          <div className="flex flex-col gap-4 pl-3">
+          <div className="flex flex-row gap-4">
             {navOrbs.map((orb, index) => (
               <motion.div
                 key={orb.path}
-                initial={{ x: -30, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
+                initial={{ y: -20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: index * 0.1 + 0.2 }}
               >
                 <Link
                   href={orb.path}
-                  className="flex items-center gap-2"
+                  className="flex items-center"
                 >
                   <motion.div
                     whileTap={{ scale: 0.9 }}
-                    className="w-11 h-11 rounded-full border border-[#f5f5f5]/20 flex items-center justify-center bg-[#0a0a0a]/80 backdrop-blur-sm"
-                    style={{ boxShadow: `0 0 12px 2px ${orb.color}30` }}
+                    className="w-9 h-9 rounded-full border border-[#f5f5f5]/20 flex items-center justify-center bg-[#0a0a0a]/80 backdrop-blur-sm"
                   >
-                    <span className="text-base" style={{ color: orb.color }}>{orb.icon}</span>
+                    <span className="text-sm" style={{ color: orb.color }}>{orb.icon}</span>
                   </motion.div>
                 </Link>
               </motion.div>
