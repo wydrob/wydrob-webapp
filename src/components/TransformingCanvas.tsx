@@ -209,17 +209,13 @@ export default function TransformingCanvas({ scrollProgress }: Props) {
 
       {/* ===== PHASE 1: HERO ===== */}
       <div className="fixed inset-0 flex items-center justify-center pointer-events-none">
-        <div className="text-center">
-          <div className="font-display text-[8.5vw] leading-[0.85] flex justify-center tracking-tighter">
-            <motion.span initial={false} style={{ y: wY, opacity: wOpacity }} className="inline-block">W</motion.span>
-            <motion.span initial={false} style={{ y: yY, opacity: yOpacity }} className="inline-block">Y</motion.span>
-            <motion.span initial={false} style={{ y: dY, opacity: dOpacity }} className="inline-block">D</motion.span>
-            <motion.span initial={false} style={{ y: rY, opacity: rOpacity }} className="inline-block">R</motion.span>
-            <motion.span initial={false} style={{ y: oY, opacity: oOpacity }} className="inline-block">O</motion.span>
-            <motion.span initial={false} style={{ y: bY, opacity: bOpacity }} className="inline-block">B</motion.span>
-          </div>
-        </div>
-
+        <motion.img
+          src="/WYDlogo-2.png"
+          alt="WYDROB"
+          initial={false}
+          style={{ y: wY, opacity: wOpacity }}
+          className="h-[20vw] max-h-[300px] invert"
+        />
       </div>
 
       {/* ===== PHASE 2: CONNECT ===== */}
