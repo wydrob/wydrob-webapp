@@ -16,6 +16,11 @@ export default function FloatingNav() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
   const pathname = usePathname()
 
+  // Close menu when route changes
+  useEffect(() => {
+    setIsOpen(false)
+  }, [pathname])
+
   // Custom cursor for menu
   const cursorX = useMotionValue(0)
   const cursorY = useMotionValue(0)
@@ -37,9 +42,6 @@ export default function FloatingNav() {
     }
     return () => window.removeEventListener('mousemove', handleMouseMove)
   }, [isOpen, cursorX, cursorY])
-
-  // Don't show on home page - it has its own nav
-  if (pathname === '/') return null
 
   return (
     <>
@@ -111,7 +113,7 @@ export default function FloatingNav() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.4 }}
               onClick={() => setIsOpen(false)}
-              className="fixed inset-0 bg-[#0a0a0a]/95 backdrop-blur-xl z-[65]"
+              className="fixed inset-0 bg-[#0a0a0a] z-[200]"
             >
               {/* Animated grid background */}
               <div className="absolute inset-0 opacity-[0.03]">
@@ -134,7 +136,7 @@ export default function FloatingNav() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[66] flex items-center justify-center"
+              className="fixed inset-0 z-[201] flex items-center justify-center"
             >
               {/* Custom cursor for menu */}
               <motion.div
@@ -160,7 +162,6 @@ export default function FloatingNav() {
                   >
                     <Link
                       href={item.path}
-                      onClick={() => setIsOpen(false)}
                       className={`group relative block text-center transition-all duration-300 ${
                         pathname === item.path
                           ? 'text-[#f5f5f5]'

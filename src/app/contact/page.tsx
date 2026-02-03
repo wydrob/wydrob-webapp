@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useState, useEffect } from 'react'
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
+import { motion, useMotionValue, useSpring } from 'framer-motion'
 import Link from 'next/link'
 
 const contactMethods = [
@@ -46,7 +46,6 @@ const contactMethods = [
 export default function ContactPage() {
   const containerRef = useRef<HTMLDivElement>(null)
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
 
   // Cursor
   const cursorX = useMotionValue(0)
@@ -59,14 +58,9 @@ export default function ContactPage() {
   const handleMouseMove = (e: React.MouseEvent) => {
     cursorX.set(e.clientX)
     cursorY.set(e.clientY)
-    setMousePos({ x: e.clientX, y: e.clientY })
   }
   const handleMouseEnter = () => cursorScale.set(1)
   const handleMouseLeave = () => cursorScale.set(0)
-
-  // Parallax for background text
-  const bgX = useTransform(useMotionValue(mousePos.x), [0, typeof window !== 'undefined' ? window.innerWidth : 1920], [20, -20])
-  const bgY = useTransform(useMotionValue(mousePos.y), [0, typeof window !== 'undefined' ? window.innerHeight : 1080], [20, -20])
 
   return (
     <main
@@ -104,19 +98,16 @@ export default function ContactPage() {
       </Link>
 
       {/* Background text */}
-      <motion.div
-        style={{ x: bgX, y: bgY }}
-        className="fixed inset-0 flex items-center justify-center pointer-events-none"
-      >
+      <div className="fixed inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 0.02, scale: 1 }}
           transition={{ delay: 0.3, duration: 1 }}
-          className="font-display text-[30vw] sm:text-[40vw] tracking-tighter whitespace-nowrap text-center"
+          className="font-display text-[25vw] sm:text-[30vw] tracking-tighter w-full text-center leading-none"
         >
           CONTACT
         </motion.div>
-      </motion.div>
+      </div>
 
       {/* Main content */}
       <div className="relative z-10 h-full flex flex-col items-center justify-center px-4 sm:px-6 py-16 sm:py-20">

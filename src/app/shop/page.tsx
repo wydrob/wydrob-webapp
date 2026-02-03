@@ -251,60 +251,63 @@ export default function ShopPage() {
         })}
       </motion.div>
 
-      {/* Navigation arrows */}
-      <div className="fixed bottom-8 left-1/2 -translate-x-1/2 flex gap-4 z-50">
-        <motion.button
-          onClick={() => navigateToProduct(-1)}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-          whileTap={{ scale: 0.9 }}
-          className="w-12 h-12 border border-[#f5f5f5]/20 flex items-center justify-center hover:bg-[#f5f5f5] hover:text-black transition-all duration-300"
-          style={{ opacity: activeIndex === 0 ? 0.3 : 1 }}
-        >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <polyline points="15 18 9 12 15 6" />
-          </svg>
-        </motion.button>
-        <motion.button
-          onClick={() => navigateToProduct(1)}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-          whileTap={{ scale: 0.9 }}
-          className="w-12 h-12 border border-[#f5f5f5]/20 flex items-center justify-center hover:bg-[#f5f5f5] hover:text-black transition-all duration-300"
-          style={{ opacity: activeIndex === products.length - 1 ? 0.3 : 1 }}
-        >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <polyline points="9 18 15 12 9 6" />
-          </svg>
-        </motion.button>
-      </div>
+      {/* Navigation arrows and progress dots */}
+      <div className="fixed bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 z-50">
+        {/* Progress dots */}
+        <div className="flex gap-2">
+          {products.map((_, i) => (
+            <motion.button
+              key={i}
+              onClick={() => {
+                if (isAnimating.current) return
+                isAnimating.current = true
+                setActiveIndex(i)
+                const targetX = -i * (isMobile ? window.innerWidth : window.innerWidth * 0.6)
+                animate(scrollX.get(), targetX, {
+                  duration: 0.8,
+                  ease: [0.32, 0.72, 0, 1],
+                  onUpdate: (v) => scrollX.set(v),
+                  onComplete: () => { isAnimating.current = false }
+                })
+              }}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+              className="w-2 h-2 rounded-full transition-all duration-300"
+              style={{
+                backgroundColor: i === activeIndex ? '#f5f5f5' : 'transparent',
+                border: '1px solid rgba(245, 245, 245, 0.3)'
+              }}
+            />
+          ))}
+        </div>
 
-      {/* Progress dots */}
-      <div className="fixed bottom-8 right-8 flex flex-col gap-2 z-50">
-        {products.map((_, i) => (
+        {/* Arrows */}
+        <div className="flex gap-4">
           <motion.button
-            key={i}
-            onClick={() => {
-              if (isAnimating.current) return
-              isAnimating.current = true
-              setActiveIndex(i)
-              const targetX = -i * (isMobile ? window.innerWidth : window.innerWidth * 0.6)
-              animate(scrollX.get(), targetX, {
-                duration: 0.8,
-                ease: [0.32, 0.72, 0, 1],
-                onUpdate: (v) => scrollX.set(v),
-                onComplete: () => { isAnimating.current = false }
-              })
-            }}
+            onClick={() => navigateToProduct(-1)}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            className="w-2 h-2 rounded-full transition-all duration-300"
-            style={{
-              backgroundColor: i === activeIndex ? '#f5f5f5' : 'transparent',
-              border: '1px solid rgba(245, 245, 245, 0.3)'
-            }}
-          />
-        ))}
+            whileTap={{ scale: 0.9 }}
+            className="w-12 h-12 border border-[#f5f5f5]/20 flex items-center justify-center hover:bg-[#f5f5f5] hover:text-black transition-all duration-300"
+            style={{ opacity: activeIndex === 0 ? 0.3 : 1 }}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+          </motion.button>
+          <motion.button
+            onClick={() => navigateToProduct(1)}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            whileTap={{ scale: 0.9 }}
+            className="w-12 h-12 border border-[#f5f5f5]/20 flex items-center justify-center hover:bg-[#f5f5f5] hover:text-black transition-all duration-300"
+            style={{ opacity: activeIndex === products.length - 1 ? 0.3 : 1 }}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </motion.button>
+        </div>
       </div>
 
       {/* Background SHOP text */}
@@ -313,7 +316,7 @@ export default function ShopPage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.02 }}
           transition={{ delay: 0.5, duration: 1 }}
-          className="font-display text-[50vw] tracking-tighter whitespace-nowrap"
+          className="font-display text-[40vw] sm:text-[50vw] tracking-tighter w-full text-center leading-none translate-y-[5%]"
         >
           SHOP
         </motion.div>

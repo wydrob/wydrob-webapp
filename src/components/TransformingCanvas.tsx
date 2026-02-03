@@ -3,7 +3,6 @@
 import { motion, useTransform, MotionValue, useMotionValue, useSpring } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import SideMenu from './SideMenu'
-import OrbitalNav from './OrbitalNav'
 
 interface Props {
   scrollProgress: MotionValue<number>
@@ -117,7 +116,6 @@ export default function TransformingCanvas({ scrollProgress }: Props) {
   const [animationKey, setAnimationKey] = useState(0)
   const [mounted, setMounted] = useState(false)
   const [currentScrollSection, setCurrentScrollSection] = useState(0)
-  const [showOrbitalNav, setShowOrbitalNav] = useState(true)
 
   useEffect(() => {
     setMounted(true)
@@ -135,9 +133,6 @@ export default function TransformingCanvas({ scrollProgress }: Props) {
       else if (v < 0.5) setCurrentScrollSection(1)
       else if (v < 0.8) setCurrentScrollSection(2)
       else setCurrentScrollSection(3)
-
-      // Show orbital nav on all sections except the last (NOTECORE)
-      setShowOrbitalNav(v < 0.85)
 
       // Marquee starts earlier (0.75) so it's already moving when you arrive
       if (v >= 0.75 && !marqueeHasAnimatedIn.current) {
@@ -451,9 +446,6 @@ export default function TransformingCanvas({ scrollProgress }: Props) {
 
       {/* Side Menu */}
       <SideMenu />
-
-      {/* Orbital Navigation */}
-      <OrbitalNav isVisible={showOrbitalNav} scrollSection={currentScrollSection} />
 
     </div>
   )
