@@ -188,13 +188,6 @@ export default function FloatingNav() {
                       </div>
                     </Link>
 
-                    {/* Active page indicator */}
-                    {pathname === item.path && (
-                      <motion.div
-                        layoutId="activeIndicator"
-                        className="absolute -left-4 sm:-left-6 top-1/2 -translate-y-1/2 w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#f5f5f5]"
-                      />
-                    )}
                   </motion.div>
                 ))}
               </nav>
@@ -211,7 +204,7 @@ export default function FloatingNav() {
                 <motion.div
                   animate={{ rotate: 360 }}
                   transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-                  className="absolute top-0 left-0 w-3 h-3 rounded-full bg-[#f5f5f5]/20"
+                  className="absolute -top-1.5 -left-1.5 w-3 h-3 rounded-full bg-[#f5f5f5]/20"
                 />
               </motion.div>
 
@@ -226,7 +219,7 @@ export default function FloatingNav() {
                 <motion.div
                   animate={{ rotate: -360 }}
                   transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-                  className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-[#f5f5f5]/20"
+                  className="absolute -bottom-1.5 -right-1.5 w-3 h-3 rounded-full bg-[#f5f5f5]/20"
                 />
               </motion.div>
 
