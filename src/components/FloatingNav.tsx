@@ -8,7 +8,6 @@ import { usePathname } from 'next/navigation'
 const navItems = [
   { name: 'Home', path: '/', icon: '⌂', subtitle: 'Return' },
   { name: 'Shop', path: '/shop', icon: '◇', subtitle: 'Merch' },
-  { name: 'About', path: '/about', icon: '◎', subtitle: 'The story' },
   { name: 'Contact', path: '/contact', icon: '◉', subtitle: 'Connect' },
 ]
 
@@ -162,7 +161,7 @@ export default function FloatingNav() {
                     <Link
                       href={item.path}
                       onClick={() => setIsOpen(false)}
-                      className={`group relative flex items-center gap-4 sm:gap-6 transition-all duration-300 ${
+                      className={`group relative block text-center transition-all duration-300 ${
                         pathname === item.path
                           ? 'text-[#f5f5f5]'
                           : 'text-[#f5f5f5]/30 hover:text-[#f5f5f5]'
@@ -186,26 +185,13 @@ export default function FloatingNav() {
                           {item.subtitle}
                         </motion.span>
                       </div>
-
-                      {/* Arrow indicator */}
-                      <motion.span
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{
-                          opacity: hoveredIndex === i ? 1 : 0,
-                          x: hoveredIndex === i ? 0 : -10
-                        }}
-                        className="text-[#f5f5f5]/40 text-lg sm:text-xl"
-                      >
-                        →
-                      </motion.span>
                     </Link>
 
                     {/* Active page indicator */}
                     {pathname === item.path && (
                       <motion.div
                         layoutId="activeIndicator"
-                        className="absolute -left-6 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-[#f5f5f5]"
-                        style={{ boxShadow: '0 0 10px 2px rgba(245,245,245,0.5)' }}
+                        className="absolute -left-4 sm:-left-6 top-1/2 -translate-y-1/2 w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#f5f5f5]"
                       />
                     )}
                   </motion.div>

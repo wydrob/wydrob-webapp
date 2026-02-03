@@ -72,7 +72,7 @@ export default function ContactPage() {
     <main
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      className="relative min-h-screen bg-[#0a0a0a] overflow-hidden"
+      className="relative h-screen bg-[#0a0a0a] overflow-hidden"
     >
       {/* Cursor */}
       <motion.div
@@ -112,14 +112,14 @@ export default function ContactPage() {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 0.02, scale: 1 }}
           transition={{ delay: 0.3, duration: 1 }}
-          className="font-display text-[40vw] tracking-tighter whitespace-nowrap"
+          className="font-display text-[30vw] sm:text-[40vw] tracking-tighter whitespace-nowrap text-center"
         >
-          GET IN
+          CONTACT
         </motion.div>
       </motion.div>
 
       {/* Main content */}
-      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-6 py-20">
+      <div className="relative z-10 h-full flex flex-col items-center justify-center px-4 sm:px-6 py-16 sm:py-20">
         {/* Title */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
