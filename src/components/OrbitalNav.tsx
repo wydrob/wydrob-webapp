@@ -14,7 +14,6 @@ interface NavOrb {
 
 const navOrbs: NavOrb[] = [
   { name: 'Contact', path: '/contact', icon: '◉', description: 'Connect', color: '#95e1d3' },
-  { name: 'About', path: '/about', icon: '◎', description: 'The story', color: '#4ecdc4' },
   { name: 'Shop', path: '/shop', icon: '◇', description: 'Merch drops', color: '#ffe66d' },
 ]
 
@@ -132,16 +131,8 @@ export default function OrbitalNav({ isVisible, scrollSection }: Props) {
                     {/* Orb */}
                     <motion.div
                       className="w-11 h-11 rounded-full border border-[#f5f5f5]/20 hover:border-[#f5f5f5]/50 flex items-center justify-center bg-[#0a0a0a]/90 backdrop-blur-sm transition-all duration-300"
-                      style={{
-                        background: isHovered
-                          ? `radial-gradient(circle, ${orb.color}20, #0a0a0a)`
-                          : '#0a0a0a'
-                      }}
                     >
-                      <span
-                        className="text-base transition-all duration-300"
-                        style={{ color: isHovered ? orb.color : '#f5f5f5' }}
-                      >
+                      <span className="text-base text-[#f5f5f5]">
                         {orb.icon}
                       </span>
                     </motion.div>
@@ -157,7 +148,7 @@ export default function OrbitalNav({ isVisible, scrollSection }: Props) {
                           className="absolute left-full ml-3 top-1/2 -translate-y-1/2 whitespace-nowrap z-10"
                         >
                           <div className="bg-[#0a0a0a] border border-[#f5f5f5]/20 px-3 py-2 rounded-sm">
-                            <div className="font-display text-base tracking-wide" style={{ color: orb.color }}>
+                            <div className="font-display text-base tracking-wide text-[#f5f5f5]">
                               {orb.name}
                             </div>
                             <div className="text-[9px] text-[#f5f5f5]/40 tracking-widest uppercase">
@@ -200,7 +191,7 @@ export default function OrbitalNav({ isVisible, scrollSection }: Props) {
                     whileTap={{ scale: 0.9 }}
                     className="w-9 h-9 rounded-full border border-[#f5f5f5]/20 flex items-center justify-center bg-[#0a0a0a]/80 backdrop-blur-sm"
                   >
-                    <span className="text-sm" style={{ color: orb.color }}>{orb.icon}</span>
+                    <span className="text-sm text-[#f5f5f5]">{orb.icon}</span>
                   </motion.div>
                 </Link>
               </motion.div>

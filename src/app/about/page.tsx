@@ -140,9 +140,9 @@ export default function AboutPage() {
         {/* Section 1: INTRO */}
         <motion.div
           style={{ opacity: section1Opacity }}
-          className="w-screen h-screen flex items-center justify-center flex-shrink-0"
+          className="w-screen h-screen flex items-center justify-center flex-shrink-0 px-4"
         >
-          <div className="text-center">
+          <div className="text-center w-full">
             <motion.h1
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
@@ -165,21 +165,21 @@ export default function AboutPage() {
         {/* Section 2: WHO IS WYDROB */}
         <motion.div
           style={{ opacity: section2Opacity }}
-          className="w-screen h-screen flex items-center justify-center flex-shrink-0 px-8"
+          className="w-screen h-screen flex items-center justify-center flex-shrink-0 px-4 sm:px-8"
         >
-          <div className="max-w-2xl">
+          <div className="max-w-2xl w-full text-center sm:text-left">
             <h2 className="font-display text-4xl sm:text-6xl tracking-tight mb-8">WHO IS WYDROB?</h2>
             <p className="text-[#f5f5f5]/60 text-lg leading-relaxed mb-8">
               WYDROB is a music artist and engineer behind NOTECORE.
             </p>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
               {facts.map((fact, i) => (
                 <motion.div
                   key={fact.label}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.1 }}
-                  className="border-l border-[#f5f5f5]/20 pl-4"
+                  className="border-l border-[#f5f5f5]/20 pl-4 text-left"
                 >
                   <div className="text-[10px] text-[#f5f5f5]/30 tracking-widest mb-1">{fact.label}</div>
                   <div className="font-display text-2xl">{fact.value}</div>
@@ -192,22 +192,22 @@ export default function AboutPage() {
         {/* Section 3: TIMELINE */}
         <motion.div
           style={{ opacity: section3Opacity }}
-          className="w-screen h-screen flex items-center justify-center flex-shrink-0 px-8"
+          className="w-screen h-screen flex items-center justify-center flex-shrink-0 px-4 sm:px-8"
         >
-          <div>
+          <div className="w-full">
             <h2 className="font-display text-4xl sm:text-6xl tracking-tight mb-12 text-center">THE JOURNEY</h2>
-            <div className="flex gap-6 sm:gap-12 flex-wrap justify-center">
+            <div className="flex gap-4 sm:gap-12 flex-wrap justify-center px-2">
               {timeline.map((item, i) => (
                 <motion.div
                   key={item.year}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.15 }}
-                  className="w-[200px] sm:w-[250px] relative"
+                  className="w-[140px] sm:w-[250px] relative text-center"
                 >
-                  <div className="text-5xl sm:text-7xl font-display text-[#f5f5f5]/10 mb-4">{item.year}</div>
-                  <h3 className="font-display text-xl mb-2">{item.title}</h3>
-                  <p className="text-[#f5f5f5]/40 text-sm">{item.desc}</p>
+                  <div className="text-4xl sm:text-7xl font-display text-[#f5f5f5]/10 mb-2 sm:mb-4">{item.year}</div>
+                  <h3 className="font-display text-lg sm:text-xl mb-2">{item.title}</h3>
+                  <p className="text-[#f5f5f5]/40 text-xs sm:text-sm">{item.desc}</p>
                 </motion.div>
               ))}
             </div>
@@ -217,15 +217,11 @@ export default function AboutPage() {
         {/* Section 4: THANKS */}
         <motion.div
           style={{ opacity: section4Opacity }}
-          className="w-screen h-screen flex items-center justify-center flex-shrink-0 px-8"
+          className="w-screen h-screen flex items-center justify-center flex-shrink-0 px-4 sm:px-8"
         >
-          <div className="text-center max-w-3xl relative">
-            <p className="text-[#f5f5f5]/30 text-sm tracking-widest uppercase mb-10">
-              there&apos;s nowhere else to go
-            </p>
-
+          <div className="text-center w-full max-w-3xl relative">
             {/* Spinning animation */}
-            <div className="w-64 h-64 mx-auto mb-10">
+            <div className="w-48 h-48 sm:w-64 sm:h-64 mx-auto mb-10">
               <video
                 autoPlay
                 loop
@@ -234,11 +230,11 @@ export default function AboutPage() {
                 className="w-full h-full object-contain"
               >
                 <source src="/TRANSPARENT_hires_animation.webm" type="video/webm" />
-                <source src="/TRANSPARENT_hires_animation.mov" type="video/quicktime" />
+                <source src="/TRANSPARENT_hires_animation_hevc.mp4" type='video/mp4; codecs="hvc1"' />
               </video>
             </div>
 
-            <div className="flex gap-4 justify-center">
+            <div className="flex justify-center">
               <Link href="/">
                 <motion.button
                   onMouseEnter={handleMouseEnter}
@@ -248,17 +244,6 @@ export default function AboutPage() {
                   className="border border-[#f5f5f5]/20 px-8 py-3 text-sm tracking-widest uppercase hover:bg-[#f5f5f5] hover:text-black transition-all duration-300"
                 >
                   Back Home
-                </motion.button>
-              </Link>
-              <Link href="/releases">
-                <motion.button
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="border border-[#f5f5f5]/20 px-8 py-3 text-sm tracking-widest uppercase hover:bg-[#f5f5f5] hover:text-black transition-all duration-300"
-                >
-                  Releases
                 </motion.button>
               </Link>
             </div>
