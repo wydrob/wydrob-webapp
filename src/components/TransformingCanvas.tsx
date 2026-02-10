@@ -441,7 +441,7 @@ export default function TransformingCanvas({ scrollProgress }: Props) {
       </motion.div>
 
       {/* Side Menu */}
-      <SideMenu />
+      {/* <SideMenu /> */}
 
     </div>
   )
