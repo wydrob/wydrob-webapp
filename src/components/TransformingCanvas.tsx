@@ -98,10 +98,15 @@ export default function TransformingCanvas({ scrollProgress }: Props) {
   const platform4Y = useTransform(scrollProgress, [0.56, 0.64], [30, 0])
   const platformYs = [platform1Y, platform2Y, platform3Y, platform4Y]
 
-  // ===== PHASE 4: NOTECORE (0.75 - 1) =====
-  const notecoreOpacity = useTransform(scrollProgress, [0.7, 0.78, 1], [0, 1, 1])
+  // ===== PHASE 4: NOTECORE (snaps at 0.833, fades out before SOTM) =====
+  const notecoreOpacity = useTransform(scrollProgress, [0.7, 0.78, 0.9, 0.96], [0, 1, 1, 0])
   const notecoreScale = useTransform(scrollProgress, [0.7, 0.8], [0.95, 1])
   const notecoreY = useTransform(scrollProgress, [0.7, 0.8], [30, 0])
+
+  // ===== PHASE 5: SOTM (snaps at 1.0) =====
+  const sotmOpacity = useTransform(scrollProgress, [0.92, 0.98, 1], [0, 1, 1])
+  const sotmScale = useTransform(scrollProgress, [0.92, 0.98], [0.97, 1])
+  const sotmY = useTransform(scrollProgress, [0.92, 0.98], [20, 0])
 
   // Bounce-in effect for marquee rows - spring physics for that bounce/ease feel
   // Flipped: left rows come from right, right rows come from left
@@ -113,9 +118,12 @@ export default function TransformingCanvas({ scrollProgress }: Props) {
 
   // Letter animation state
   const [notecoreVisible, setNotecoreVisible] = useState(false)
+  const [sotmVisible, setSotmVisible] = useState(false)
   const [animationKey, setAnimationKey] = useState(0)
+  const [sotmAnimationKey, setSotmAnimationKey] = useState(0)
   const [mounted, setMounted] = useState(false)
   const [currentScrollSection, setCurrentScrollSection] = useState(0)
+  const sotmHasAnimatedIn = useRef(false)
 
   useEffect(() => {
     setMounted(true)
@@ -127,14 +135,14 @@ export default function TransformingCanvas({ scrollProgress }: Props) {
 
   useEffect(() => {
     const unsubscribe = scrollProgress.on('change', (v) => {
-      // Sections: HERO=0, CONNECT=0.33, MUSIC=0.66, NOTECORE=1.0
-      // Track current section for orbital nav
-      if (v < 0.2) setCurrentScrollSection(0)
+      // Track current section for nav (snaps at 0, 0.333, 0.666, 0.833, 1.0)
+      if (v < 0.17) setCurrentScrollSection(0)
       else if (v < 0.5) setCurrentScrollSection(1)
-      else if (v < 0.8) setCurrentScrollSection(2)
-      else setCurrentScrollSection(3)
+      else if (v < 0.75) setCurrentScrollSection(2)
+      else if (v < 0.92) setCurrentScrollSection(3)
+      else setCurrentScrollSection(4)
 
-      // Marquee starts earlier (0.75) so it's already moving when you arrive
+      // Marquee starts earlier so it's already moving when you arrive
       if (v >= 0.75 && !marqueeHasAnimatedIn.current) {
         marqueeHasAnimatedIn.current = true
         marqueeLeftTarget.set(0)
@@ -146,13 +154,23 @@ export default function TransformingCanvas({ scrollProgress }: Props) {
       }
 
       // Logo/letters animate when fully in NOTECORE section
-      if (v >= 0.9 && !hasAnimatedIn.current) {
+      if (v >= 0.83 && v < 0.95 && !hasAnimatedIn.current) {
         hasAnimatedIn.current = true
         setAnimationKey(k => k + 1)
         setNotecoreVisible(true)
-      } else if (v < 0.9 && hasAnimatedIn.current) {
+      } else if ((v < 0.83 || v >= 0.95) && hasAnimatedIn.current) {
         hasAnimatedIn.current = false
         setNotecoreVisible(false)
+      }
+
+      // SOTM section animations
+      if (v >= 0.97 && !sotmHasAnimatedIn.current) {
+        sotmHasAnimatedIn.current = true
+        setSotmAnimationKey(k => k + 1)
+        setSotmVisible(true)
+      } else if (v < 0.97 && sotmHasAnimatedIn.current) {
+        sotmHasAnimatedIn.current = false
+        setSotmVisible(false)
       }
     })
     return () => unsubscribe()
@@ -162,7 +180,8 @@ export default function TransformingCanvas({ scrollProgress }: Props) {
 
   // Pointer events - only enable when section is visible
   const musicPointerEvents = useTransform(scrollProgress, (v) => (v >= 0.45 && v <= 0.75) ? 'auto' : 'none')
-  const notecorePointerEvents = useTransform(scrollProgress, (v) => (v >= 0.7) ? 'auto' : 'none')
+  const notecorePointerEvents = useTransform(scrollProgress, (v) => (v >= 0.7 && v <= 0.95) ? 'auto' : 'none')
+  const sotmPointerEvents = useTransform(scrollProgress, (v) => (v >= 0.92) ? 'auto' : 'none')
 
   // Progress indicator
   const progressWidth = useTransform(scrollProgress, [0, 1], ['0%', '100%'])
@@ -198,7 +217,7 @@ export default function TransformingCanvas({ scrollProgress }: Props) {
       />
 
       {/* Scroll sections */}
-      <div className="h-[400vh]" />
+      <div className="h-[500vh]" />
 
       {/* Progress bar */}
       <motion.div
@@ -434,8 +453,104 @@ export default function TransformingCanvas({ scrollProgress }: Props) {
           </div>
         )}
 
-        
-        <footer className="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 text-[8px] sm:text-[10px] text-[#f5f5f5]/20 tracking-widest uppercase">
+      </motion.div>
+
+      {/* ===== PHASE 5: SOTM ===== */}
+      <motion.div
+        style={{ opacity: sotmOpacity, scale: sotmScale, y: sotmY, pointerEvents: sotmPointerEvents }}
+        className="fixed inset-0 overflow-hidden"
+      >
+        {/* Dark background - SOTM world */}
+        <div className="absolute inset-0 bg-[#141410]" />
+
+        {/* Ambient floating orbs */}
+        <div
+          className="absolute w-[300px] h-[300px] rounded-full blur-[80px] opacity-[0.12]"
+          style={{
+            background: 'radial-gradient(circle, #8b8b3c 0%, transparent 70%)',
+            top: '20%',
+            left: '15%',
+            animation: 'sotmDrift 18s ease-in-out infinite',
+          }}
+        />
+        <div
+          className="absolute w-[240px] h-[240px] rounded-full blur-[70px] opacity-[0.08]"
+          style={{
+            background: 'radial-gradient(circle, #6b6b2c 0%, transparent 70%)',
+            bottom: '15%',
+            right: '20%',
+            animation: 'sotmDrift 22s ease-in-out infinite reverse',
+          }}
+        />
+        <div
+          className="absolute w-[150px] h-[150px] rounded-full blur-[50px]"
+          style={{
+            background: 'radial-gradient(circle, #8b8b3c 0%, transparent 70%)',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            animation: 'sotmBreathe 5s ease-in-out infinite',
+          }}
+        />
+
+        {/* Slow rotating ring */}
+        <div
+          className="absolute border border-[#8b8b3c]/[0.06] rounded-full pointer-events-none"
+          style={{
+            width: '42vmin',
+            height: '42vmin',
+            top: '50%',
+            left: '50%',
+            animation: 'sotmRotate 40s linear infinite',
+          }}
+        />
+        <div
+          className="absolute border border-[#8b8b3c]/[0.04] rounded-full pointer-events-none"
+          style={{
+            width: '54vmin',
+            height: '54vmin',
+            top: '50%',
+            left: '50%',
+            animation: 'sotmRotate 60s linear infinite reverse',
+          }}
+        />
+
+        {/* Center content — the billboard */}
+        {sotmVisible && (
+          <a
+            key={sotmAnimationKey}
+            href="https://songofthemonth.org"
+            target="_blank"
+            rel="noopener noreferrer"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            className="absolute inset-0 flex flex-col items-center justify-center cursor-pointer group"
+          >
+            {/* "sotm" — PP Fragment Glare ExtraBold */}
+            <motion.h1
+              initial={{ opacity: 0, scale: 0.92 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+              className="sotm-shimmer-text text-[12vw] sm:text-[8.4vw] leading-[0.85] tracking-[-0.02em] select-none"
+              style={{ fontFamily: "'PP Fragment Glare', 'Playfair Display', Georgia, serif", fontWeight: 800 }}
+            >
+              sotm
+            </motion.h1>
+
+            {/* Subtle "enter" hint */}
+            <motion.span
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.3 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
+              className="text-[#8b8b3c] text-[8px] sm:text-[10px] tracking-[0.3em] uppercase mt-4 group-hover:opacity-60 transition-opacity duration-500"
+              style={{ fontFamily: "'PP Fragment Glare', 'Playfair Display', Georgia, serif" }}
+            >
+              songofthemonth.org
+            </motion.span>
+          </a>
+        )}
+
+        <footer className="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 text-[8px] sm:text-[10px] text-[#8b8b3c]/15 tracking-widest uppercase z-10">
           WYDROB © 2026
         </footer>
       </motion.div>

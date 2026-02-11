@@ -4,8 +4,11 @@ import { useRef, useEffect, useState, useCallback } from 'react'
 import { useMotionValue, animate, motion } from 'framer-motion'
 import TransformingCanvas from '@/components/TransformingCanvas'
 
-const NUM_SECTIONS = 4
+const NUM_SECTIONS = 5
 const SCROLL_DURATION = 1.2
+// Custom snap positions so original 4 sections keep their exact progress values
+// HERO=0, CONNECT=0.333, MUSIC=0.666, NOTECORE=0.833, SOTM=1.0
+const SECTION_PROGRESS = [0, 1/3, 2/3, 5/6, 1.0]
 
 export default function Home() {
   const scrollProgress = useMotionValue(0)
@@ -25,10 +28,8 @@ export default function Home() {
       currentSection.current = targetSection
       setCurrentSectionState(targetSection)
 
-      const vh = baseViewportHeight.current
-      const targetScroll = targetSection * vh
-      const totalScrollable = vh * (NUM_SECTIONS - 1)
-      const targetProgress = targetScroll / totalScrollable
+      const targetProgress = SECTION_PROGRESS[targetSection]
+      const totalScrollable = baseViewportHeight.current * (NUM_SECTIONS - 1)
 
       animate(scrollProgress.get(), targetProgress, {
         duration: SCROLL_DURATION,

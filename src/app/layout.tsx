@@ -33,7 +33,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${bebas.variable} ${playfair.variable}`}>
+      <head>
+        <link rel="preload" href="/fonts/PPFragment-GlareExtraBold.otf" as="font" type="font/otf" crossOrigin="anonymous" />
+        <link rel="preload" href="/fonts/PPFragment-GlareRegular.otf" as="font" type="font/otf" crossOrigin="anonymous" />
+      </head>
       <body className="font-sans antialiased" suppressHydrationWarning>
+        {/* Hidden preloader to force PP Fragment Glare font loading on page load */}
+        <div aria-hidden="true" style={{ position: 'absolute', width: 0, height: 0, overflow: 'hidden', pointerEvents: 'none' }}>
+          <span style={{ fontFamily: "'PP Fragment Glare'", fontWeight: 400 }}>.</span>
+          <span style={{ fontFamily: "'PP Fragment Glare'", fontWeight: 800 }}>.</span>
+        </div>
         {children}
         <FloatingNav />
         <InvertToggle />

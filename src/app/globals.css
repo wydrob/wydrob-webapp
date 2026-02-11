@@ -1,5 +1,22 @@
 @import "tailwindcss";
 
+/* PP Fragment Glare */
+@font-face {
+  font-family: 'PP Fragment Glare';
+  src: url('/fonts/PPFragment-GlareRegular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'PP Fragment Glare';
+  src: url('/fonts/PPFragment-GlareExtraBold.otf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: block;
+}
+
 @theme inline {
   --color-dark: #0a0a0a;
   --color-dark-section: #0f0f0f;
@@ -260,5 +277,49 @@ a:focus-visible {
 .cursor-blink::after {
   content: '|';
   animation: cursorBlink 1s step-end infinite;
+}
+
+/* ===== SOTM ambient animations ===== */
+
+/* Slow drifting orb movement */
+@keyframes sotmDrift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(30px, -20px) scale(1.05); }
+  50% { transform: translate(-15px, 15px) scale(0.97); }
+  75% { transform: translate(20px, 10px) scale(1.02); }
+}
+
+/* Gentle breathing pulse for the glow */
+@keyframes sotmBreathe {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.3; }
+}
+
+/* Slow rotation for ambient ring */
+@keyframes sotmRotate {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Subtle shimmer across the text */
+@keyframes sotmShimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.sotm-shimmer-text {
+  background: linear-gradient(
+    90deg,
+    #e0e0d0 0%,
+    #e0e0d0 35%,
+    #c8c8a0 50%,
+    #e0e0d0 65%,
+    #e0e0d0 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: sotmShimmer 6s ease-in-out infinite;
 }
 
