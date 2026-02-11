@@ -517,37 +517,42 @@ export default function TransformingCanvas({ scrollProgress }: Props) {
 
         {/* Center content — the billboard */}
         {sotmVisible && (
-          <a
+          <div
             key={sotmAnimationKey}
-            href="https://songofthemonth.org"
-            target="_blank"
-            rel="noopener noreferrer"
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-            className="absolute inset-0 flex flex-col items-center justify-center cursor-pointer group"
+            className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none"
           >
             {/* "sotm" — PP Fragment Glare ExtraBold */}
-            <motion.h1
+            <motion.a
+              href="https://songofthemonth.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
               initial={{ opacity: 0, scale: 0.92 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-              className="sotm-shimmer-text text-[12vw] sm:text-[8.4vw] leading-[0.85] tracking-[-0.02em] select-none"
+              className="sotm-shimmer-text text-[12vw] sm:text-[8.4vw] leading-[0.85] tracking-[-0.02em] select-none pointer-events-auto cursor-pointer"
               style={{ fontFamily: "'PP Fragment Glare', 'Playfair Display', Georgia, serif", fontWeight: 800 }}
             >
               sotm
-            </motion.h1>
+            </motion.a>
 
             {/* Subtle "enter" hint */}
-            <motion.span
+            <motion.a
+              href="https://songofthemonth.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.3 }}
               transition={{ duration: 0.8, delay: 0.8 }}
-              className="text-[#8b8b3c] text-[8px] sm:text-[10px] tracking-[0.3em] mt-4 group-hover:opacity-60 transition-opacity duration-500"
+              className="text-[#8b8b3c] text-[8px] sm:text-[10px] tracking-[0.3em] mt-4 hover:opacity-60 transition-opacity duration-500 pointer-events-auto cursor-pointer"
               style={{ fontFamily: "'PP Fragment Glare', 'Playfair Display', Georgia, serif" }}
             >
               songofthemonth.org
-            </motion.span>
-          </a>
+            </motion.a>
+          </div>
         )}
 
         <footer className="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 text-[8px] sm:text-[10px] text-[#8b8b3c]/15 tracking-widest uppercase z-10">
