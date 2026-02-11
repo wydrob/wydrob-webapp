@@ -542,7 +542,7 @@ export default function TransformingCanvas({ scrollProgress }: Props) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.3 }}
               transition={{ duration: 0.8, delay: 0.8 }}
-              className="text-[#8b8b3c] text-[8px] sm:text-[10px] tracking-[0.3em] uppercase mt-4 group-hover:opacity-60 transition-opacity duration-500"
+              className="text-[#8b8b3c] text-[8px] sm:text-[10px] tracking-[0.3em] mt-4 group-hover:opacity-60 transition-opacity duration-500"
               style={{ fontFamily: "'PP Fragment Glare', 'Playfair Display', Georgia, serif" }}
             >
               songofthemonth.org
