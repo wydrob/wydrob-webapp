@@ -169,11 +169,10 @@ export default function ShopPage() {
             >
               {/* Product card */}
               <motion.div
-                initial={{ opacity: 0, scale: 0.8, rotateY: -15 }}
+                initial={{ opacity: 0, scale: 0.8 }}
                 animate={{
                   opacity: isActive ? 1 : 0.3,
                   scale: isActive ? 1 : 0.85,
-                  rotateY: isActive ? 0 : (i < activeIndex ? 15 : -15),
                 }}
                 transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }}
                 className="relative w-[80vw] sm:w-[45vw] max-w-[500px] aspect-square"
@@ -183,7 +182,7 @@ export default function ShopPage() {
                 <div className="absolute inset-0 border border-[#f5f5f5]/10 bg-[#f5f5f5]/[0.02]">
                   {/* Grid pattern background */}
                   <div
-                    className="absolute inset-0 opacity-20"
+                    className="absolute inset-0 opacity-[0.08]"
                     style={{
                       backgroundImage: `
                         linear-gradient(to right, #f5f5f5 1px, transparent 1px),
@@ -193,31 +192,12 @@ export default function ShopPage() {
                     }}
                   />
 
-                  {/* Coming soon badge */}
-                  <motion.div
-                    initial={{ scale: 0, rotate: -12 }}
-                    animate={{ scale: isActive ? 1 : 0, rotate: -12 }}
-                    transition={{ delay: 0.3, type: 'spring', stiffness: 200 }}
-                    className="absolute top-4 right-4 bg-[#f5f5f5] text-black px-3 py-1 text-[10px] tracking-widest font-bold"
-                  >
-                    {product.status}
-                  </motion.div>
 
                   {/* Product icon/placeholder */}
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <motion.div
-                      animate={{
-                        scale: isActive ? [1, 1.05, 1] : 1,
-                      }}
-                      transition={{
-                        duration: 2,
-                        repeat: isActive ? Infinity : 0,
-                        ease: 'easeInOut'
-                      }}
-                      className="text-[#f5f5f5]/5 font-display text-[20vw] sm:text-[12vw]"
-                    >
+                    <div className="text-[#f5f5f5]/5 font-display text-[16vw] sm:text-[9.6vw] leading-none translate-y-[5%]">
                       ?
-                    </motion.div>
+                    </div>
                   </div>
                 </div>
 
@@ -234,17 +214,19 @@ export default function ShopPage() {
               </motion.div>
 
               {/* Decorative lines */}
+              {i > 0 && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: isActive ? 1 : 0 }}
+                  transition={{ delay: 0.4, duration: 0.6 }}
+                  className="absolute left-[10%] top-1/4 bottom-1/4 w-px bg-gradient-to-b from-transparent via-[#f5f5f5]/20 to-transparent hidden sm:block"
+                />
+              )}
               <motion.div
-                initial={{ scaleY: 0 }}
-                animate={{ scaleY: isActive ? 1 : 0 }}
-                transition={{ delay: 0.4, duration: 0.6 }}
-                className="absolute left-[10%] top-1/4 bottom-1/4 w-px bg-gradient-to-b from-transparent via-[#f5f5f5]/20 to-transparent origin-top"
-              />
-              <motion.div
-                initial={{ scaleY: 0 }}
-                animate={{ scaleY: isActive ? 1 : 0 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: isActive ? 1 : 0 }}
                 transition={{ delay: 0.5, duration: 0.6 }}
-                className="absolute right-[10%] top-1/4 bottom-1/4 w-px bg-gradient-to-b from-transparent via-[#f5f5f5]/20 to-transparent origin-bottom"
+                className="absolute right-[10%] top-1/4 bottom-1/4 w-px bg-gradient-to-b from-transparent via-[#f5f5f5]/20 to-transparent hidden sm:block"
               />
             </motion.div>
           )

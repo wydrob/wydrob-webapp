@@ -103,7 +103,7 @@ export default function ContactPage() {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 0.02, scale: 1 }}
           transition={{ delay: 0.3, duration: 1 }}
-          className="font-display text-[25vw] sm:text-[30vw] tracking-tighter w-full text-center leading-none"
+          className="font-display text-[25vw] sm:text-[30vw] tracking-tighter w-full text-center leading-none translate-y-[5%]"
         >
           CONTACT
         </motion.div>
@@ -159,19 +159,7 @@ export default function ContactPage() {
           ))}
         </div>
 
-        {/* Decorative elements */}
-        <motion.div
-          initial={{ scaleY: 0 }}
-          animate={{ scaleY: 1 }}
-          transition={{ delay: 0.8, duration: 0.8 }}
-          className="absolute left-1/4 top-1/4 bottom-1/4 w-px bg-gradient-to-b from-transparent via-[#f5f5f5]/10 to-transparent origin-top hidden sm:block"
-        />
-        <motion.div
-          initial={{ scaleY: 0 }}
-          animate={{ scaleY: 1 }}
-          transition={{ delay: 1, duration: 0.8 }}
-          className="absolute right-1/4 top-1/4 bottom-1/4 w-px bg-gradient-to-b from-transparent via-[#f5f5f5]/10 to-transparent origin-bottom hidden sm:block"
-        />
+
 
         {/* Footer note */}
       </div>

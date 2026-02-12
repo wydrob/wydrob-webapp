@@ -463,58 +463,6 @@ export default function TransformingCanvas({ scrollProgress }: Props) {
         {/* Dark background - SOTM world */}
         <div className="absolute inset-0 bg-[#141410]" />
 
-        {/* Ambient floating orbs */}
-        <div
-          className="absolute w-[300px] h-[300px] rounded-full blur-[80px] opacity-[0.12]"
-          style={{
-            background: 'radial-gradient(circle, #8b8b3c 0%, transparent 70%)',
-            top: '20%',
-            left: '15%',
-            animation: 'sotmDrift 18s ease-in-out infinite',
-          }}
-        />
-        <div
-          className="absolute w-[240px] h-[240px] rounded-full blur-[70px] opacity-[0.08]"
-          style={{
-            background: 'radial-gradient(circle, #6b6b2c 0%, transparent 70%)',
-            bottom: '15%',
-            right: '20%',
-            animation: 'sotmDrift 22s ease-in-out infinite reverse',
-          }}
-        />
-        <div
-          className="absolute w-[150px] h-[150px] rounded-full blur-[50px]"
-          style={{
-            background: 'radial-gradient(circle, #8b8b3c 0%, transparent 70%)',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            animation: 'sotmBreathe 5s ease-in-out infinite',
-          }}
-        />
-
-        {/* Slow rotating ring */}
-        <div
-          className="absolute border border-[#8b8b3c]/[0.06] rounded-full pointer-events-none"
-          style={{
-            width: '42vmin',
-            height: '42vmin',
-            top: '50%',
-            left: '50%',
-            animation: 'sotmRotate 40s linear infinite',
-          }}
-        />
-        <div
-          className="absolute border border-[#8b8b3c]/[0.04] rounded-full pointer-events-none"
-          style={{
-            width: '54vmin',
-            height: '54vmin',
-            top: '50%',
-            left: '50%',
-            animation: 'sotmRotate 60s linear infinite reverse',
-          }}
-        />
-
         {/* Center content — the billboard */}
         {sotmVisible && (
           <div
@@ -531,8 +479,8 @@ export default function TransformingCanvas({ scrollProgress }: Props) {
               initial={{ opacity: 0, scale: 0.92 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-              className="sotm-shimmer-text text-[12vw] sm:text-[8.4vw] leading-[0.85] tracking-[-0.02em] select-none pointer-events-auto cursor-pointer"
-              style={{ fontFamily: "'PP Fragment Glare', 'Playfair Display', Georgia, serif", fontWeight: 800 }}
+              className="text-[#e0e0d0] text-[8vw] sm:text-[5.6vw] leading-[0.85] tracking-[-0.02em] select-none pointer-events-auto cursor-pointer"
+              style={{ fontFamily: "'PP Fragment Glare', 'Playfair Display', Georgia, serif", fontWeight: 800, textShadow: '0 0 20px rgba(200, 200, 160, 0.08), 0 0 40px rgba(200, 200, 160, 0.04)' }}
             >
               sotm
             </motion.a>
@@ -547,7 +495,7 @@ export default function TransformingCanvas({ scrollProgress }: Props) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.3 }}
               transition={{ duration: 0.8, delay: 0.8 }}
-              className="text-[#8b8b3c] text-[8px] sm:text-[10px] tracking-[0.3em] mt-4 hover:opacity-60 transition-opacity duration-500 pointer-events-auto cursor-pointer"
+              className="text-[#8b8b3c] text-[10px] sm:text-[12px] tracking-[0.3em] mt-4 hover:opacity-60 transition-opacity duration-500 pointer-events-auto cursor-pointer"
               style={{ fontFamily: "'PP Fragment Glare', 'Playfair Display', Georgia, serif" }}
             >
               songofthemonth.org
@@ -558,6 +506,14 @@ export default function TransformingCanvas({ scrollProgress }: Props) {
         <footer className="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 text-[8px] sm:text-[10px] text-[#8b8b3c]/15 tracking-widest uppercase z-10">
           WYDROB © 2026
         </footer>
+
+        {/* Film grain overlay — on top of everything */}
+        <div
+          className="absolute inset-0 opacity-[0.04] pointer-events-none z-20"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='3.5' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+          }}
+        />
       </motion.div>
 
       {/* Side Menu */}

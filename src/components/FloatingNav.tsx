@@ -115,19 +115,7 @@ export default function FloatingNav() {
               onClick={() => setIsOpen(false)}
               className="fixed inset-0 bg-[#0a0a0a] z-[200]"
             >
-              {/* Animated grid background */}
-              <div className="absolute inset-0 opacity-[0.03]">
-                <div
-                  className="w-full h-full"
-                  style={{
-                    backgroundImage: `
-                      linear-gradient(to right, #f5f5f5 1px, transparent 1px),
-                      linear-gradient(to bottom, #f5f5f5 1px, transparent 1px)
-                    `,
-                    backgroundSize: '60px 60px',
-                  }}
-                />
-              </div>
+
 
             </motion.div>
 
@@ -162,6 +150,12 @@ export default function FloatingNav() {
                   >
                     <Link
                       href={item.path}
+                      onClick={(e) => {
+                        if (pathname === item.path) {
+                          e.preventDefault()
+                          setIsOpen(false)
+                        }
+                      }}
                       className={`group relative block text-center transition-all duration-300 ${
                         pathname === item.path
                           ? 'text-[#f5f5f5]'
@@ -192,36 +186,7 @@ export default function FloatingNav() {
                 ))}
               </nav>
 
-              {/* Decorative corner elements */}
-              <motion.div
-                initial={{ scale: 0, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0, opacity: 0 }}
-                transition={{ delay: 0.3, duration: 0.6 }}
-                className="absolute top-12 left-12 sm:top-20 sm:left-20"
-              >
-                <div className="w-20 h-20 sm:w-32 sm:h-32 border-l border-t border-[#f5f5f5]/10" />
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-                  className="absolute -top-1.5 -left-1.5 w-3 h-3 rounded-full bg-[#f5f5f5]/20"
-                />
-              </motion.div>
 
-              <motion.div
-                initial={{ scale: 0, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0, opacity: 0 }}
-                transition={{ delay: 0.4, duration: 0.6 }}
-                className="absolute bottom-12 right-12 sm:bottom-20 sm:right-20"
-              >
-                <div className="w-20 h-20 sm:w-32 sm:h-32 border-r border-b border-[#f5f5f5]/10" />
-                <motion.div
-                  animate={{ rotate: -360 }}
-                  transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-                  className="absolute -bottom-1.5 -right-1.5 w-3 h-3 rounded-full bg-[#f5f5f5]/20"
-                />
-              </motion.div>
 
             </motion.div>
           </>
